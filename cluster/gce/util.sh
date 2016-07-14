@@ -263,9 +263,11 @@ function detect-nodes () {
   detect-node-names
   KUBE_NODE_IP_ADDRESSES=()
   for (( i=0; i<${#NODE_NAMES[@]}; i++)); do
+    #local node_ip=$(gcloud compute instances describe --project "${PROJECT}" --zone "${ZONE}" \
+    #  "${NODE_NAMES[$i]}" --fields networkInterfaces[0].accessConfigs[0].natIP \
+    #  --format=text | awk '{ print $2 }')
     local node_ip=$(gcloud compute instances describe --project "${PROJECT}" --zone "${ZONE}" \
-      "${NODE_NAMES[$i]}" --fields networkInterfaces[0].accessConfigs[0].natIP \
-      --format=text | awk '{ print $2 }')
+          "${NODE_NAMES[$i]}" --format=text |grep natIP | awk '{print $2}')
     if [[ -z "${node_ip-}" ]] ; then
       echo "Did not find ${NODE_NAMES[$i]}" >&2
     else
@@ -291,9 +293,11 @@ function detect-master () {
   detect-project
   KUBE_MASTER=${MASTER_NAME}
   if [[ -z "${KUBE_MASTER_IP-}" ]]; then
-    KUBE_MASTER_IP=$(gcloud compute instances describe --project "${PROJECT}" --zone "${ZONE}" \
-      "${MASTER_NAME}" --fields networkInterfaces[0].accessConfigs[0].natIP \
-      --format=text | awk '{ print $2 }')
+    #KUBE_MASTER_IP=$(gcloud compute instances describe --project "${PROJECT}" --zone "${ZONE}" \
+    #  "${MASTER_NAME}" --fields networkInterfaces[0].accessConfigs[0].natIP \
+    #  --format=text | awk '{ print $2 }')
+     KUBE_MASTER_IP=$(gcloud compute instances describe --project "${PROJECT}" --zone "${ZONE}" \
+         "${MASTER_NAME}" --format=text | grep natIP | awk '{ print $2 }')
   fi
   if [[ -z "${KUBE_MASTER_IP-}" ]]; then
     echo "Could not detect Kubernetes master node.  Make sure you've launched a cluster with 'kube-up.sh'" >&2
@@ -834,6 +838,7 @@ function check-cluster() {
   if [ "${NETWORK_PROVIDER}" == "opencontrail" ] && [ "${NETWORK_PROVIDER_GATEWAY_ON_MINION}" != true ]; then
      echo -e "\nCreating $NETWORK_PROVIDER gateway"
 
+     local REGION=${ZONE%-*}
      NETWORK_PROVIDER_GW_TAG="${INSTANCE_PREFIX}-${NETWORK_PROVIDER}-gateway"
      NETWORK_PROVIDER_GW_RESERVED_IP=$(gcloud compute addresses create "${INSTANCE_PREFIX}-${NETWORK_PROVIDER}-gateway-ip" \
                                   --project "${PROJECT}" \
