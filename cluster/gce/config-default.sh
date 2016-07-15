@@ -133,4 +133,5 @@ if [[ $NETWORK_PROVIDER == "opencontrail" ]]; then
     # "uses" label in the service yaml file defined for the pod
     OPENCONTRAIL_PUBLIC_SUBNET="${OPENCONTRAIL_PUBLIC_SUBNET:-10.1.0.0/16}"
     OPENCONTRAIL_PRIVATE_SUBNET="${OPENCONTRAIL_PRIVATE_SUBNET:-10.10.0.0/16}"
+    GCE_DEFAULT_IP_RANGE="${GCE_DEFAULT_IP_RANGE:-10.128.0.0/20}"
 fi

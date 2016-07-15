@@ -290,6 +290,7 @@ manifest_url_header: '$(echo "$MANIFEST_URL_HEADER" | sed -e "s/'/''/g")'
 num_nodes: $(echo "${NUM_NODES}" | sed -e "s/'/''/g")
 e2e_storage_test_environment: '$(echo "$E2E_STORAGE_TEST_ENVIRONMENT" | sed -e "s/'/''/g")'
 network_provider_gw_on_minion: '$(echo "$NETWORK_PROVIDER_GATEWAY_ON_MINION")'
+gce_default_ip_range: '$(echo "$GCE_DEFAULT_IP_RANGE")'
 EOF
     if [ -n "${KUBELET_PORT:-}" ]; then
       cat <<EOF >>/srv/salt-overlay/pillar/cluster-params.sls
