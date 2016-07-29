@@ -104,10 +104,11 @@ net.ipv4.ip_forward:
 {% if grains.get('cloud', '') == 'gce'
    and grains.get('os_family', '') == 'Debian'
    and grains.get('oscodename', '') == 'wheezy' -%}
-{% set docker_pkg_name='' %}
-{% set override_deb='' %}
-{% set override_deb_sha1='' %}
-{% set override_docker_ver='' %}
+{% set docker_pkg_name='docker-engine-1.11.2' %}
+{% set override_deb='docker-engine_1.11.2-0~wheezy_amd64.deb' %}
+{% set override_deb_sha1='a1b5278c89e8a722f38c7c76a7df61509c09b88c' %}
+{% set override_docker_ver='1.11.2' %}
+{% set override_deb_url='http://apt.dockerproject.org/repo/pool/main/d/docker-engine/docker-engine_1.11.2-0~wheezy_amd64.deb' %}
 # Ubuntu presents as os_family=Debian, osfullname=Ubuntu
 {% elif grains.get('cloud', '') == 'aws'
    and grains.get('os_family', '') == 'Debian'
