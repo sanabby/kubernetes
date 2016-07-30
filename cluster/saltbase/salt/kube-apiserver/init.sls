@@ -44,9 +44,9 @@
     - mode: 644
     - makedirs: true
     - dir_mode: 755
-    - require:
-      - service: docker
-      - service: kubelet
+#    - require:
+#      - service: docker
+#      - service: kubelet
 
 #stop legacy kube-apiserver service
 stop_kube-apiserver:

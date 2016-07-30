@@ -51,10 +51,6 @@ base:
     - flannel-server
     - flannel
 {% endif %}
-{% if grains['cloud'] is defined and grains['cloud'] in [ 'vagrant', 'gce', 'aws' ] %}
-    - docker
-    - kubelet
-{% endif %}
     - kube-apiserver
     - kube-controller-manager
     - kube-scheduler
@@ -77,6 +73,10 @@ base:
     - logrotate
 {% endif %}
     - kube-addons
+{% if grains['cloud'] is defined and grains['cloud'] in [ 'vagrant', 'gce', 'aws' ] %}
+    - docker
+    - kubelet
+{% endif %}
 {% if pillar.get('network_provider', '').lower() == 'opencontrail' %}
     - opencontrail-networking-master
 {% endif %}
