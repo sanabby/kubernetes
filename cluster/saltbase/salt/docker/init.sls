@@ -106,7 +106,7 @@ net.ipv4.ip_forward:
    and grains.get('oscodename', '') == 'wheezy' -%}
 {% set docker_pkg_name='docker-engine-1.11.2' %}
 {% set override_deb='docker-engine_1.11.2-0~wheezy_amd64.deb' %}
-{% set override_deb_sha1='a1b5278c89e8a722f38c7c76a7df61509c09b88c' %}
+{% set override_deb_sha1='e2f39e3b0ff92639befdc4a6edb491cd8c8df91a' %}
 {% set override_docker_ver='1.11.2' %}
 {% set override_deb_url='http://apt.dockerproject.org/repo/pool/main/d/docker-engine/docker-engine_1.11.2-0~wheezy_amd64.deb' %}
 # Ubuntu presents as os_family=Debian, osfullname=Ubuntu
