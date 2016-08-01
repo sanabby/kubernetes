@@ -6,6 +6,7 @@ opencontrail-networking-gateway:
       - 'OPENCONTRAIL_KUBERNETES_TAG': '{{ pillar.get('opencontrail_kubernetes_tag') }}'
       - 'OPENCONTRAIL_PUBLIC_SUBNET': '{{ pillar.get('opencontrail_public_subnet') }}'
       - 'NETWORK_PROVIDER_GATEWAY_ON_MINION': '{{ pillar.get('network_provider_gw_on_minion') }}'
+      - 'GCE_DEFAULT_IP_RANGE': '{{ pillar.get('gce_default_ip_range') }}'
     - source: https://raw.githubusercontent.com/juniper/contrail-kubernetes/{{ pillar.get('opencontrail_kubernetes_tag') }}/cluster/provision_gateway.sh
     - source_hash: https://raw.githubusercontent.com/juniper/contrail-kubernetes/{{ pillar.get('opencontrail_kubernetes_tag') }}/cluster/manifests.hash
     - cwd: /
