@@ -157,6 +157,9 @@ purge-old-docker-package:
 
 docker-upgrade:
   pkg.installed:
+    - unless:
+      - dpkg -l docker-engine
+      - ls /usr/bin/docker
     - sources:
       - {{ docker_pkg_name }}: /var/cache/docker-install/{{ override_deb }}
     - require:
